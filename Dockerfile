@@ -8,11 +8,10 @@ RUN pip install wordcloud \
     konlpy \
     nltk \
     selenium \
-    waitress
+    waitress \
+    matplotlib
 
 EXPOSE 80
 COPY . .
 
-RUN cd src
-
-CMD ["python", "app.py"]
+CMD ["python", "src/app.py"]

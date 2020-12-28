@@ -2,7 +2,7 @@ FROM python
 
 WORKDIR /app
 
-RUN pip install --update pip
+RUN pip install --upgrade pip
 
 RUN pip install wordcloud && \
     konlpy && \

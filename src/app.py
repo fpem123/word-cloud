@@ -5,9 +5,9 @@
     update: 20.12.28
 '''
 from flask import Flask, request, Response, jsonify
-from src.youtubeCrawler import Crawler
-from src.driver import Driver
-from src.contents import MyWordcloud
+from youtubeCrawler import Crawler
+from myDriver import MyDriver
+from contents import MyWordcloud
 
 from queue import Queue, Empty
 import time
@@ -15,7 +15,7 @@ import threading
 
 app = Flask(__name__)
 
-driver = Driver()
+driver = MyDriver()
 
 requests_queue = Queue()
 BATCH_SIZE = 1

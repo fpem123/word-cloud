@@ -1,5 +1,5 @@
 '''
-    Name: driver.py
+    Name: myDriver.py
     Writer: Hoseop Lee, Ainizer
     Rule: Setup selenium driver
     update: 20.12.28
@@ -16,15 +16,18 @@ import time
     Writer: Hoseop Lee, Ainizer
     Des: 크롤러 클래스 
 '''
-class Driver():
+class MyDriver():
     _driver: webdriver
 
     def __init__(self):
         # selenium options
         options = webdriver.ChromeOptions()
-        options.add_argument('headless')
+        options.add_argument('--headless')
+        options.add_argument('window-size=1200x600')
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-dev-shm-usage')
 
-        self._driver = webdriver.Chrome('chromedriver', chrome_options=options)
+        self._driver = webdriver.Chrome('driver/chromedriver', chrome_options=options)
         self._driver.implicitly_wait(1)
 
     def search_page_loader(self, url, num):

@@ -64,26 +64,32 @@ def run_crawl(target):
 
 
 def run_wordcloud(target):
-    url = f'https://www.youtube.com/user/{target}/videos'
+    try:
+        url = f'https://www.youtube.com/user/{target}/videos'
 
-    page = driver.search_page_loader(url, 5)
-    crawler = Crawler()
+        page = driver.search_page_loader(url, 4)
+        crawler = Crawler()
 
-    titles = crawler.mk_title_list(page)
+        titles = crawler.mk_title_list(page)
+    except Exception:
+        return jsonify({'message': 'Crawler error'}), 400
 
-    wc = MyWordcloud(titles)
-    wc.run()
+    try:
+        wc = MyWordcloud(titles)
+        wc.run()
 
-    result = wc.show_word_cloud()
+        result = wc.show_word_cloud()
 
-    return result
+        return result
+    except Exception:
+        return jsonify({'message': 'Word cloud error'}), 400
 
 
 @app.route('/word-cloud/<types>', methods=['POST'])
 def generation(types):
     try:
         if types != 'find_youtuber' and types != 'find_video':
-            return jsonify({'message': 'Error!, wrong type'}), 400
+            return jsonify({'message': 'Error! Wrong type'}), 400
         if requests_queue.qsize() > BATCH_SIZE:
             return jsonify({'message': 'Error! Too many request'}), 429
 

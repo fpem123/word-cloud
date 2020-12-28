@@ -21,12 +21,12 @@ class Crawler():
         soup = BeautifulSoup(page, 'lxml')
         youtubers = soup.find_all(id='info-section')
 
-        result = dict()
+        result = []
 
         for youtuber in youtubers:
             anchor = youtuber.find('a')
             name = youtuber.find(id='tooltip').string.strip()
-            result[name] = anchor.get('href')
+            result.append((name, anchor.get('href')))
 
         return result
 

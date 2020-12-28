@@ -65,7 +65,7 @@ def run_crawl(target):
 
 def run_wordcloud(target):
     try:
-        url = f'https://www.youtube.com/user/{target}/videos'
+        url = f'https://www.youtube.com/{target}/videos'
 
         page = driver.search_page_loader(url, 4)
         crawler = Crawler()
@@ -73,6 +73,9 @@ def run_wordcloud(target):
         titles = crawler.mk_title_list(page)
     except Exception:
         return jsonify({'message': 'Crawler error'}), 400
+
+    if len(titles) == 0:
+        return jsonify({'message': 'No videos'}), 400
 
     try:
         wc = MyWordcloud(titles)

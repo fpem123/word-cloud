@@ -27,7 +27,7 @@ class MyDriver():
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-dev-shm-usage')
 
-        self._driver = webdriver.Chrome('driver/chromedriver', chrome_options=options)
+        self._driver = webdriver.Chrome('chromedriver', chrome_options=options)
         self._driver.implicitly_wait(1)
 
     def search_page_loader(self, url, num):

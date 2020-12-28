@@ -4,10 +4,10 @@ WORKDIR /app
 
 RUN pip install --upgrade pip
 
-RUN pip install wordcloud && \
-    konlpy && \
-    nltk && \
-    selenium && \
+RUN pip install wordcloud \
+    konlpy \
+    nltk \
+    selenium \
     waitress
 
 EXPOSE 80

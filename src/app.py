@@ -32,6 +32,14 @@ def handle_requests_by_batch():
             except Empty:
                 continue
 
+        batch_output = []
+
+        for requests in requests_batch:
+            if len(requests["input"]) == 1:
+                requests['output'] = run_crawl(requests['input'][0])
+            elif len(requests["input"]) == 2:
+                requests['output'] = run_wordcloud(requests['input'][0])
+
 
 threading.Thread(target=handle_requests_by_batch).start()
 
@@ -85,6 +93,10 @@ def generation(types):
             target = str(request.form['youtuber'])
 
             args.append(target)
+
+            if types == 'find_video':
+                args.append(True)
+
         except Exception:
             return jsonify({'message': 'Error! Wrong request'}), 500
 

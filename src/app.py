@@ -79,7 +79,7 @@ def run_wordcloud(target):
     return result
 
 
-@app.route('/wordcloud/<types>', method=['POST'])
+@app.route('/word-cloud/<types>', methods=['POST'])
 def generation(types):
     try:
         if types != 'find_youtuber' or types != 'find_video':

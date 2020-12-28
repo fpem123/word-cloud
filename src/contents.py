@@ -2,7 +2,7 @@
     Name: contents.py
     Writer: Hoseop Lee, Ainizer
     Rule: make word cloud module
-    date: 2020.12.23
+    update: 20.12.28
 '''
 from wordcloud import WordCloud, STOPWORDS
 import matplotlib.pyplot as plt

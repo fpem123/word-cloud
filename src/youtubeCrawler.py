@@ -1,14 +1,10 @@
 '''
-    Name: contents.py
+    Name: youtuberCrawler.py
     Writer: Hoseop Lee, Ainizer
     Rule: make YouTuber's video title list
+    update: 20.12.28
 '''
-
-from selenium import webdriver
-from selenium.webdriver.chrome.webdriver import WebDriver
-from selenium.webdriver.common.keys import Keys
 from bs4 import BeautifulSoup
-
 
 '''
     Name: Crwler()
@@ -16,8 +12,6 @@ from bs4 import BeautifulSoup
     Des: 크롤러 클래스 
 '''
 class Crawler():
-    _driver: webdriver
-    _target: str
 
     def __init__(self):
         self.korean = False          # is Korean

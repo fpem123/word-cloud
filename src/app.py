@@ -1,4 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+'''
+    Name: app.py
+    Writer: Hoseop Lee, Ainizer
+    Rule: Flask app
+    update: 20.12.28
+'''
+from flask import Flask, request, Response, jsonify
 from src.youtubeCrawler import Crawler
 from src.driver import Driver
 from src.contents import MyWordcloud

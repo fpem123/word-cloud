@@ -1,7 +1,8 @@
 '''
-    Name: contents.py
+    Name: driver.py
     Writer: Hoseop Lee, Ainizer
-    Rule: make YouTuber's video title list
+    Rule: Setup selenium driver
+    update: 20.12.28
 '''
 
 from selenium import webdriver

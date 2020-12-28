@@ -86,7 +86,6 @@ def run_wordcloud(target):
 
         result = wc.show_word_cloud()
 
-        result = Image.fromarray(result)
         result = io.BytesIO(result)
 
         return result

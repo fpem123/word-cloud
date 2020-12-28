@@ -8,6 +8,7 @@ from flask import Flask, request, Response, jsonify
 from youtubeCrawler import Crawler
 from myDriver import MyDriver
 from contents import MyWordcloud
+from PIL import Image
 
 from queue import Queue, Empty
 import time
@@ -47,7 +48,7 @@ threading.Thread(target=handle_requests_by_batch).start()
 def run_crawl(target):
     url = f'https://www.youtube.com/results?search_query={target}'
 
-    page = driver.search_page_loader(url, 2)
+    page = driver.page_loader(url, 2)
     crawler = Crawler()
 
     youtubers = crawler.mk_youtuber_list(page)
@@ -67,7 +68,7 @@ def run_wordcloud(target):
     try:
         url = f'https://www.youtube.com/{target}/videos'
 
-        page = driver.search_page_loader(url, 4)
+        page = driver.page_loader(url, 4)
         crawler = Crawler()
 
         titles = crawler.mk_title_list(page)

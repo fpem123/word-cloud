@@ -5,7 +5,6 @@
     update: 20.12.28
 '''
 from wordcloud import WordCloud, STOPWORDS
-import matplotlib.pyplot as plt
 from PIL import Image
 import numpy as np
 from konlpy.corpus import kolaw
@@ -40,7 +39,7 @@ class MyWordcloud():
         target = ' '.join(self._text)
 
         # Make word cloud object
-        wc = WordCloud(font_path='/Library/Fonts/Arial Unicode.ttf', max_font_size=40, min_font_size=10,
+        wc = WordCloud(max_font_size=40, min_font_size=10,
                        background_color=self.color, mask=self.mask)
 
         self.wordcloud = wc.generate(target)
@@ -75,7 +74,8 @@ class MyWordcloud():
 
     def show_word_cloud(self):
         # Show word cloud
-        result = plt.imshow(self.wordcloud)
-        result.plt.axis('off')
+        result = WordCloud.to_image(self.wordcloud)
+
+        print(Image.isImageType(result))
 
         return result

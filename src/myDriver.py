@@ -30,7 +30,7 @@ class MyDriver():
         self._driver = webdriver.Chrome('chromedriver', chrome_options=options)
         self._driver.implicitly_wait(1)
 
-    def search_page_loader(self, url, num):
+    def page_loader(self, url, num):
         self._driver.get(url)
 
         body = self._driver.find_element_by_tag_name('body')

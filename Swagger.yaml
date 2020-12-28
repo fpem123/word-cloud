@@ -1,0 +1,66 @@
+openapi: 3.0.0   # Open api version
+
+info:   # Set basic infomation
+  title: Youtuber's-video-wordcloud
+  version: "v0.1"
+  contact:
+    name: AInizer - Lee hoseop
+
+servers:   # Set your server endpoint
+  - url: https://master-word-cloud-fpem123.endpoint.ainize.ai/
+
+paths:
+  /wordcloud/find_youtuber:
+    post:
+      requestBody:
+        required: true
+        description: "It is a natural number less than a million you want to do prime factorization."
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                target:
+                  type: string
+      responses:   # Set response
+        '200':
+          description: "Successful Response"
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: "Bad Request Error"
+        '404':
+          description: "Target not found"
+        '429':
+          description: "Too many requests"
+        '500':
+          description: "Wrong request"
+          
+          
+  /wordcloud/find_video:
+    post:
+      requestBody:
+        required: true
+        description: "It is a natural number less than a million you want to do prime factorization."
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                target:
+                  type: string
+      responses:   # Set response
+        '200':
+          description: "Successful Response"
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: "Bad Request Error"
+        '429':
+          description: "Too many requests"
+        '500':
+          description: "Wrong request"

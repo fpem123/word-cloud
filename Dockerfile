@@ -9,7 +9,8 @@ RUN pip install wordcloud \
     nltk \
     selenium \
     waitress \
-    matplotlib
+    matplotlib \
+    flask
 
 EXPOSE 80
 COPY . .

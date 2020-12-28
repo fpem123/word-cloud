@@ -28,4 +28,4 @@ wc = MyWordcloud(tl)
 wc.run()
 result = wc.show_word_cloud()
 
-#result.show()
+result.show()

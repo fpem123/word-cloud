@@ -4,6 +4,7 @@
     Rule: Flask app
     update: 20.12.28
 '''
+import argparse
 
 from flask import Flask, request, Response, jsonify
 from youtubeCrawler import Crawler
@@ -35,8 +36,6 @@ def handle_requests_by_batch():
                 requests_batch.append(requests_queue.get(timeout=CHECK_INTERVAL))
             except Empty:
                 continue
-
-        batch_output = []
 
         for requests in requests_batch:
             if len(requests["input"]) == 1:
@@ -88,15 +87,22 @@ def run_wordcloud(target):
         result = wc.show_word_cloud()
 
         result = Image.fromarray(result)
-        img_io = io.BytesIO()
-        result.save(img_io, 'jpeg', quality=100)
-        img_io.seek(0)
-        img = base64.b64encode(img_io.getvalue())
+        result = io.BytesIO(result)
 
-        return img
+        return result
 
     except Exception:
         return jsonify({'message': 'Word cloud error'}), 400
+
+
+@app.route('/queue-clear')
+def queue_debug():
+    try:
+        requests_queue.queue.clear()
+
+        return 'Clear', 200
+    except Exception:
+        return jsonify({'message': 'Queue clear error'}), 400
 
 
 @app.route('/word-cloud/<types>', methods=['POST'])

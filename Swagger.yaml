@@ -57,7 +57,8 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                type: string
+                format: binary
         '400':
           description: "Bad Request Error"
         '429':

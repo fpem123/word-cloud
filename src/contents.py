@@ -7,7 +7,6 @@
 from wordcloud import WordCloud, STOPWORDS
 from PIL import Image
 import numpy as np
-from konlpy.corpus import kolaw
 from konlpy.tag import Kkma
 import nltk
 

@@ -4,6 +4,7 @@
     Rule: Flask app
     update: 20.12.28
 '''
+
 from flask import Flask, request, Response, jsonify
 from youtubeCrawler import Crawler
 from myDriver import MyDriver
@@ -11,8 +12,10 @@ from contents import MyWordcloud
 from PIL import Image
 
 from queue import Queue, Empty
+import io
 import time
 import threading
+import base64
 
 app = Flask(__name__)
 
@@ -84,7 +87,14 @@ def run_wordcloud(target):
 
         result = wc.show_word_cloud()
 
-        return result
+        result = Image.fromarray(result)
+        img_io = io.BytesIO()
+        result.save(img_io, 'jpeg', quality=100)
+        img_io.seek(0)
+        img = base64.b64encode(img_io.getvalue())
+
+        return img
+
     except Exception:
         return jsonify({'message': 'Word cloud error'}), 400
 

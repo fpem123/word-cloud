@@ -82,7 +82,7 @@ def run_wordcloud(target):
 @app.route('/word-cloud/<types>', methods=['POST'])
 def generation(types):
     try:
-        if types != 'find_youtuber' or types != 'find_video':
+        if types != 'find_youtuber' and types != 'find_video':
             return jsonify({'message': 'Error!, wrong type'}), 400
         if requests_queue.qsize() > BATCH_SIZE:
             return jsonify({'message': 'Error! Too many request'}), 429

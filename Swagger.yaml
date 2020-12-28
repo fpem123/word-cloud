@@ -10,7 +10,7 @@ servers:   # Set your server endpoint
   - url: https://master-word-cloud-fpem123.endpoint.ainize.ai/
 
 paths:
-  /wordcloud/find_youtuber:
+  /word-cloud/find_youtuber:
     post:
       requestBody:
         required: true
@@ -39,7 +39,7 @@ paths:
           description: "Wrong request"
           
           
-  /wordcloud/find_video:
+  /word-cloud/find_video:
     post:
       requestBody:
         required: true

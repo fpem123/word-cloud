@@ -124,7 +124,7 @@ def generation(types):
 
             args.append(target)
 
-            if types == 'find_video':
+            if types == 'make_wordcloud':
                 args.append(True)
 
         except Exception:

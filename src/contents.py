@@ -72,8 +72,8 @@ class MyWordcloud():
         self.color = color
 
     def show_word_cloud(self):
-        # Show word cloud
-        #result = WordCloud.to_array(self.wordcloud)
-        result = WordCloud.to_image(self.wordcloud)
+        # convert img to array
+        result = WordCloud.to_array(self.wordcloud)
+        #result = WordCloud.to_image(self.wordcloud)
 
         return result

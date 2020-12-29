@@ -14,6 +14,8 @@ from PIL import Image
 
 from queue import Queue, Empty
 import io
+import os
+import uuid
 import time
 import threading
 
@@ -24,6 +26,7 @@ driver = MyDriver()
 requests_queue = Queue()
 BATCH_SIZE = 1
 CHECK_INTERVAL = 0.1
+RESULT_FOLDER = 'img_data'
 
 
 def handle_requests_by_batch():
@@ -86,11 +89,21 @@ def run_wordcloud(target):
         return jsonify({'message': 'No videos'}), 400
 
     try:
+        result: Image
+
         wc = MyWordcloud(titles)
         wc.run()
 
         result = wc.show_word_cloud()
-        #result = io.BytesIO(result)
+
+        os.makedirs(RESULT_FOLDER, exist_ok=True)
+        path = os.path.join(RESULT_FOLDER, 'wc')
+
+        Image.fromarray(result).save(path, 'jpeg')
+
+        with open(path, 'rb') as f:
+            data = f.read()
+        result = io.BytesIO(data)
 
         return 'wc', result
 

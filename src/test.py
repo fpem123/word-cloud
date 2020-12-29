@@ -3,9 +3,12 @@ from myDriver import MyDriver
 from youtubeCrawler import Crawler
 from PIL import Image
 import io
+import os
 import numpy as np
 
 import time
+
+RESULT_FOLDER = 'img_data/'
 
 driver = MyDriver()
 
@@ -32,6 +35,13 @@ wc = MyWordcloud(tl)
 wc.run()
 result = wc.show_word_cloud()
 
-result = io.BytesIO(result)
+os.makedirs(RESULT_FOLDER, exist_ok=True)
+path = os.path.join(RESULT_FOLDER, 'wc')
+
+Image.fromarray(result).save(path, 'jpeg')
+
+with open(path, 'rb') as f:
+    data = f.read()
+result = io.BytesIO(data)
 
 print(result)

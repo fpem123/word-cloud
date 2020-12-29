@@ -138,9 +138,9 @@ def generation(types):
         result = req['output']
 
         if result[0] == 'crawl':
-            return result
+            return result[1]
         elif result[0] == 'wc':
-            return send_file(result, mimetype='image/jpeg')
+            return send_file(result[1], mimetype='image/jpeg')
 
     except Exception:
         return jsonify({'message': 'Error! Unable'}), 400

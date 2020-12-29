@@ -73,8 +73,6 @@ class MyWordcloud():
 
     def show_word_cloud(self):
         # Show word cloud
-        result = WordCloud.to_image(self.wordcloud)
-
-        print(Image.isImageType(result))
+        result = WordCloud.to_array(self.wordcloud)
 
         return result

@@ -16,7 +16,6 @@ from queue import Queue, Empty
 import io
 import time
 import threading
-import base64
 
 app = Flask(__name__)
 
@@ -28,20 +27,26 @@ CHECK_INTERVAL = 0.1
 
 
 def handle_requests_by_batch():
-    while True:
-        requests_batch = []
+    try:
+        while True:
+            requests_batch = []
 
-        while not (len(requests_batch) >= BATCH_SIZE):
-            try:
-                requests_batch.append(requests_queue.get(timeout=CHECK_INTERVAL))
-            except Empty:
-                continue
+            while not (len(requests_batch) >= BATCH_SIZE):
+                try:
+                    requests_batch.append(requests_queue.get(timeout=CHECK_INTERVAL))
+                except Empty:
+                    continue
 
-        for requests in requests_batch:
-            if len(requests["input"]) == 1:
-                requests['output'] = run_crawl(requests['input'][0])
-            elif len(requests["input"]) == 2:
-                requests['output'] = run_wordcloud(requests['input'][0])
+            for requests in requests_batch:
+                if len(requests["input"]) == 1:
+                    requests['output'] = run_crawl(requests['input'][0])
+                elif len(requests["input"]) == 2:
+                    requests['output'] = run_wordcloud(requests['input'][0])
+
+    except Exception as e:
+        while not requests_queue.empty():
+            requests_queue.get()
+        print(e)
 
 
 threading.Thread(target=handle_requests_by_batch).start()
@@ -68,7 +73,7 @@ def run_crawl(target):
 
 def run_wordcloud(target):
     try:
-        url = f'https://www.youtube.com/{target}/videos'
+        url = f'https://www.youtube.com{target}/videos'
 
         page = driver.page_loader(url, 4)
         crawler = Crawler()

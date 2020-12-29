@@ -1,7 +1,9 @@
 from contents import MyWordcloud
 from myDriver import MyDriver
 from youtubeCrawler import Crawler
-import matplotlib.pyplot as plt
+from PIL import Image
+import io
+import numpy as np
 
 import time
 
@@ -28,4 +30,6 @@ wc = MyWordcloud(tl)
 wc.run()
 result = wc.show_word_cloud()
 
-result.show()
+result = io.BytesIO(result)
+
+print(result)

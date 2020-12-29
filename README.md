@@ -13,6 +13,7 @@ You can use API page, and need 1 parameter.
 *** /find_youtuber ***
 
 youtuber: This is youtuber channel name that you want.
+
  => exam: AI network or pewdiepew
 
 result -> Channel name, some part of channel url.
@@ -20,6 +21,7 @@ result -> Channel name, some part of channel url.
 *** /make_wordcloud ***
 
 youtuber: This is youtuber part of channel url. That url can get /find_youtuber
+
  => exam: /channel/UCnyBeZ5iEdlKrAcfNbZ-wog or /user/pewdiepie
 
 result -> Word cloud image

@@ -35,12 +35,3 @@ result = wc.show_word_cloud()
 result = io.BytesIO(result)
 
 print(result)
-
-def xx():
-    return 'wc', 1
-
-a = xx()
-
-print(a)
-print(a[0])
-print(a[1])

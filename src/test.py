@@ -17,6 +17,8 @@ crawler = Crawler()
 
 yl = crawler.mk_youtuber_list(page)
 
+print(yl)
+
 url = "https://www.youtube.com/channel/UCnyBeZ5iEdlKrAcfNbZ-wog/videos"
 
 page = driver.page_loader(url, 4)
@@ -33,3 +35,12 @@ result = wc.show_word_cloud()
 result = io.BytesIO(result)
 
 print(result)
+
+def xx():
+    return 'wc', 1
+
+a = xx()
+
+print(a)
+print(a[0])
+print(a[1])

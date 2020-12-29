@@ -6,7 +6,7 @@
 '''
 import argparse
 
-from flask import Flask, request, Response, jsonify
+from flask import Flask, request, Response, jsonify, send_file
 from youtubeCrawler import Crawler
 from myDriver import MyDriver
 from contents import MyWordcloud
@@ -68,7 +68,7 @@ def run_crawl(target):
     if len(result) == 0:
         return jsonify({'message': 'Youtuber not found, try again'}), 404
 
-    return result
+    return 'crawl', result
 
 
 def run_wordcloud(target):
@@ -89,10 +89,10 @@ def run_wordcloud(target):
         wc = MyWordcloud(titles)
         wc.run()
 
-        result = wc.show_word_cloud()
-        result = io.BytesIO(result)
+        data = wc.show_word_cloud()
+        result = io.BytesIO(data)
 
-        return {'result': [result]}
+        return 'wc', result
 
     except Exception:
         return jsonify({'message': 'Word cloud error'}), 400
@@ -135,9 +135,12 @@ def generation(types):
         while 'output' not in req:
             time.sleep(CHECK_INTERVAL)
 
-        result_image = req['output']
+        result = req['output']
 
-        return result_image
+        if result[0] == 'crawl':
+            return result
+        elif result[0] == 'wc':
+            return send_file(result, mimetype='image/jpeg')
 
     except Exception:
         return jsonify({'message': 'Error! Unable'}), 400

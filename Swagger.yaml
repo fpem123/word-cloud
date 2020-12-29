@@ -39,7 +39,7 @@ paths:
           description: "Wrong request"
           
           
-  /word-cloud/find_video:
+  /word-cloud/make_wordcloud:
     post:
       requestBody:
         required: true

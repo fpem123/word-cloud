@@ -6,7 +6,7 @@
 '''
 
 # external module
-from flask import Flask, request, Response, jsonify, send_file
+from flask import Flask, request, Response, jsonify, send_file, render_template, redirect
 from PIL import Image
 
 # internal module
@@ -178,7 +178,7 @@ def health():
 
 @app.route('/')
 def main():
-    return "Ok, Use API plz", 200
+    return render_template('main.html'), 200
 
 
 if __name__ == '__main__':

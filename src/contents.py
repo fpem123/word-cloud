@@ -37,8 +37,10 @@ class MyWordcloud():
     def _mk_word_cloud(self):
         target = ' '.join(self._text)
 
+        font = "8CWdFZ7DPDGqlF9o7-ot4M-VDac.ttf"
+
         # Make word cloud object
-        wc = WordCloud(max_font_size=40, min_font_size=10,
+        wc = WordCloud(font_path=font, max_font_size=40, min_font_size=10,
                        background_color=self.color, mask=self.mask)
 
         self.wordcloud = wc.generate(target)
@@ -73,7 +75,7 @@ class MyWordcloud():
 
     def show_word_cloud(self):
         # convert img to array
-        result = WordCloud.to_array(self.wordcloud)
-        #result = WordCloud.to_image(self.wordcloud)
+        #result = WordCloud.to_array(self.wordcloud)
+        result = WordCloud.to_image(self.wordcloud)
 
         return result

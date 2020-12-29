@@ -89,8 +89,8 @@ def run_wordcloud(target):
         wc = MyWordcloud(titles)
         wc.run()
 
-        data = wc.show_word_cloud()
-        result = io.BytesIO(data)
+        result = wc.show_word_cloud()
+        #result = io.BytesIO(result)
 
         return 'wc', result
 

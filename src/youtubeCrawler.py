@@ -2,7 +2,7 @@
     Name: youtuberCrawler.py
     Writer: Hoseop Lee, Ainizer
     Rule: make YouTuber's video title list
-    update: 20.12.28
+    update: 20.12.29
 '''
 from bs4 import BeautifulSoup
 
@@ -14,12 +14,12 @@ from bs4 import BeautifulSoup
 class Crawler():
 
     def __init__(self):
-        self.korean = False          # is Korean
+        self.korean = False          # channel language is Korean?
 
     # 유튜버 채널을 크롤링하여 리스트로 만드는 메소드
     def mk_youtuber_list(self, page):
         soup = BeautifulSoup(page, 'lxml')
-        youtubers = soup.find_all(id='info-section')
+        youtubers = soup.find_all(id='info-section')    # info-section got youtuber's profile image and channel url
 
         result = []
 

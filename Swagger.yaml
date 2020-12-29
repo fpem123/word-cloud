@@ -5,6 +5,13 @@ info:   # Set basic infomation
   version: "v0.1"
   contact:
     name: AInizer - Lee hoseop
+  description: |
+    Make a youtuber's video title word cloud...
+    ---
+      How to use:
+      * First, get youtuber channel url using find_youtuber request body. (ex. AI network)
+      * Second, copy youtuber chennel url (ex. /channel/UCnyBeZ5iEdlKrAcfNbZ-wog)
+      * Last, paste url in make_wordcloud request body.
 
 servers:   # Set your server endpoint
   - url: https://master-word-cloud-fpem123.endpoint.ainize.ai/
@@ -14,7 +21,7 @@ paths:
     post:
       requestBody:
         required: true
-        description: "It is a natural number less than a million you want to do prime factorization."
+        description: This request can get a youtuer's channel url (but, it is some part, not full url).
         content:
           multipart/form-data:
             schema:
@@ -43,7 +50,9 @@ paths:
     post:
       requestBody:
         required: true
-        description: "It is a natural number less than a million you want to do prime factorization."
+        description: This request make a video title word cloud. |
+        And it need some time.|
+        request exam - /channel/UCnyBeZ5iEdlKrAcfNbZ-wog or /user/pewdiepie ...
         content:
           multipart/form-data:
             schema:

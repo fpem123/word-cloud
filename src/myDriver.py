@@ -27,9 +27,13 @@ class MyDriver():
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-dev-shm-usage')
 
+        # use chrome
         self._driver = webdriver.Chrome('chromedriver', chrome_options=options)
         self._driver.implicitly_wait(1)
 
+    # page scroll
+    # url is target usl
+    # num is number of how many scroll
     def page_loader(self, url, num):
         self._driver.get(url)
 

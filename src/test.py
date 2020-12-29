@@ -4,9 +4,6 @@ from youtubeCrawler import Crawler
 from PIL import Image
 import io
 import os
-import numpy as np
-
-import time
 
 RESULT_FOLDER = 'img_data/'
 

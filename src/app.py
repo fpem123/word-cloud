@@ -2,9 +2,8 @@
     Name: app.py
     Writer: Hoseop Lee, Ainizer
     Rule: Flask app
-    update: 20.12.28
+    update: 20.12.29
 '''
-import argparse
 
 from flask import Flask, request, Response, jsonify, send_file
 from youtubeCrawler import Crawler
@@ -15,7 +14,6 @@ from PIL import Image
 from queue import Queue, Empty
 import io
 import os
-import uuid
 import time
 import threading
 
@@ -24,11 +22,12 @@ app = Flask(__name__)
 driver = MyDriver()
 
 requests_queue = Queue()
-BATCH_SIZE = 1
+BATCH_SIZE = 1          # also max queue size
 CHECK_INTERVAL = 0.1
 RESULT_FOLDER = 'img_data'
 
 
+# request handler
 def handle_requests_by_batch():
     try:
         while True:
@@ -55,6 +54,7 @@ def handle_requests_by_batch():
 threading.Thread(target=handle_requests_by_batch).start()
 
 
+# find target youtuber
 def run_crawl(target):
     url = f'https://www.youtube.com/results?search_query={target}'
 
@@ -74,11 +74,16 @@ def run_crawl(target):
     return 'crawl', result
 
 
+# make word cloud
 def run_wordcloud(target):
     try:
+        # bocking user mistake
+        if target[0] != '/':
+            target = '/' + target
+
         url = f'https://www.youtube.com{target}/videos'
 
-        page = driver.page_loader(url, 4)
+        page = driver.page_loader(url, 5)
         crawler = Crawler()
 
         titles = crawler.mk_title_list(page)
@@ -88,17 +93,18 @@ def run_wordcloud(target):
     if len(titles) == 0:
         return jsonify({'message': 'No videos'}), 400
 
+    # make word cloud part
     try:
-        result: Image
-
         wc = MyWordcloud(titles)
         wc.run()
 
         result = wc.show_word_cloud()
 
+        # make dir
         os.makedirs(RESULT_FOLDER, exist_ok=True)
         path = os.path.join(RESULT_FOLDER, 'wc')
 
+        # save result image. If not save image, you will see missing image.
         Image.fromarray(result).save(path, 'jpeg')
 
         with open(path, 'rb') as f:
@@ -136,6 +142,7 @@ def generation(types):
 
             args.append(target)
 
+            # Add type identify
             if types == 'make_wordcloud':
                 args.append(True)
 
@@ -152,6 +159,7 @@ def generation(types):
 
         if result[0] == 'crawl':
             return result[1]
+        # word cloud result is a image. so, need send_file method. This is important.
         elif result[0] == 'wc':
             return send_file(result[1], mimetype='image/jpeg')
 

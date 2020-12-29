@@ -2,7 +2,7 @@
     Name: contents.py
     Writer: Hoseop Lee, Ainizer
     Rule: make word cloud module
-    update: 20.12.28
+    update: 20.12.29
 '''
 from wordcloud import WordCloud, STOPWORDS
 from PIL import Image
@@ -20,7 +20,7 @@ class MyWordcloud():
     def __init__(self, text):
         self._text = text
         self.mask = None
-        self.color = 'white'
+        self.color = 'white'        # default color is white
         self.wordcloud = None
         self.korean = False
 

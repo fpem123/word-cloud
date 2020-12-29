@@ -92,7 +92,7 @@ def run_wordcloud(target):
         result = wc.show_word_cloud()
         result = io.BytesIO(result)
 
-        return {'result' : result}
+        return {'result': [result]}
 
     except Exception:
         return jsonify({'message': 'Word cloud error'}), 400

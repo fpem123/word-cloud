@@ -50,9 +50,9 @@ paths:
     post:
       requestBody:
         required: true
-        description: This request make a video title word cloud. |
-        And it need some time.|
-        request exam - /channel/UCnyBeZ5iEdlKrAcfNbZ-wog or /user/pewdiepie ...
+        description: This request make a video title word cloud.
+          And it need some time.
+          Request exam /channel/UCnyBeZ5iEdlKrAcfNbZ-wog or /user/pewdiepie
         content:
           multipart/form-data:
             schema:

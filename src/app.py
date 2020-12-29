@@ -5,17 +5,21 @@
     update: 20.12.29
 '''
 
+# external module
 from flask import Flask, request, Response, jsonify, send_file
-from youtubeCrawler import Crawler
-from myDriver import MyDriver
-from contents import MyWordcloud
 from PIL import Image
 
+# internal module
 from queue import Queue, Empty
 import io
 import os
 import time
 import threading
+
+# my module
+from youtubeCrawler import Crawler
+from myDriver import MyDriver
+from contents import MyWordcloud
 
 app = Flask(__name__)
 
@@ -83,7 +87,7 @@ def run_wordcloud(target):
 
         url = f'https://www.youtube.com{target}/videos'
 
-        page = driver.page_loader(url, 5)
+        page = driver.page_loader(url, 4)
         crawler = Crawler()
 
         titles = crawler.mk_title_list(page)
@@ -174,7 +178,7 @@ def health():
 
 @app.route('/')
 def main():
-    return "Ok", 200
+    return "Ok, Use API plz", 200
 
 
 if __name__ == '__main__':

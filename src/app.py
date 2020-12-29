@@ -87,7 +87,7 @@ def run_wordcloud(target):
 
         url = f'https://www.youtube.com{target}/videos'
 
-        page = driver.page_loader(url, 4)
+        page = driver.page_loader(url, 5)
         crawler = Crawler()
 
         titles = crawler.mk_title_list(page)

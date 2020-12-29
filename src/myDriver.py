@@ -42,7 +42,7 @@ class MyDriver():
         for count in range(num):
             last = self._driver.execute_script('return document.documentElement.scrollHeight')
 
-            for i in range(num):
+            for i in range(4):
                 body.send_keys(Keys.END)
                 time.sleep(0.5)
 

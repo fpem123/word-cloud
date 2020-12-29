@@ -59,7 +59,7 @@ class MyWordcloud():
         dic = dict(data500)
 
         # Make word cloud object
-        wc = WordCloud(font_path='/Library/Fonts/Arial Unicode.ttf', max_font_size=40, min_font_size=10,
+        wc = WordCloud(font_path='/Library/Fonts/Arial Unicode.ttf', max_font_size=80, min_font_size=10,
                        background_color=self.color, mask=self.mask)
 
         self.wordcloud = wc.generate_from_frequencies(dic)

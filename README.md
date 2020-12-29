@@ -8,7 +8,7 @@ When you enter channel url some part, this program crawling that channel and mak
 
 You can use API page, and need 1 parameter.
 
-###** Post parameter **
+### ** Post parameter **
 
 *** /find_youtuber ***
 
@@ -26,11 +26,11 @@ result -> Word cloud image
 
 ### ** With CLI **
 
-####/find_youtuber
+#### /find_youtuber
 
 curl -X POST "https://master-word-cloud-fpem123.endpoint.ainize.ai/word-cloud/find_youtuber" -H "accept: application/json" -H "Content-Type: multipart/form-data" -F "youtuber={youtuber}"
 
-####/make_wordcloud
+#### /make_wordcloud
 
 curl -X POST "https://master-word-cloud-fpem123.endpoint.ainize.ai/word-cloud/make_wordcloud" -H "accept: images/*" -H "Content-Type: multipart/form-data" -F "youtuber={youtuber channel url}"
 

@@ -32,9 +32,7 @@ wc = MyWordcloud(tl)
 wc.run()
 result = wc.show_word_cloud()
 
-result.show()
 
-'''
 os.makedirs(RESULT_FOLDER, exist_ok=True)
 path = os.path.join(RESULT_FOLDER, 'wc')
 
@@ -47,4 +45,3 @@ result = io.BytesIO(data)
 driver.quit_driver()
 
 print(result)
-'''

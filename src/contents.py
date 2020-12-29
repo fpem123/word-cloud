@@ -75,7 +75,7 @@ class MyWordcloud():
 
     def show_word_cloud(self):
         # convert img to array
-        #result = WordCloud.to_array(self.wordcloud)
-        result = WordCloud.to_image(self.wordcloud)
+        result = WordCloud.to_array(self.wordcloud)
+        #result = WordCloud.to_image(self.wordcloud)
 
         return result

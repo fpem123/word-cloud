@@ -41,4 +41,6 @@ with open(path, 'rb') as f:
     data = f.read()
 result = io.BytesIO(data)
 
+driver.quit_driver()
+
 print(result)

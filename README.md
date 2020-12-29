@@ -4,6 +4,8 @@ This API make video title word cloud using youtuber channel url
 This is used selenium and wordcloud module
 When you enter channel url some part, this program crawling that channel and make word cloud image.
 
+font: KBIZ 한마음고딕
+
 ## how to use
 
 You can use API page, and need 1 parameter.

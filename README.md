@@ -1,5 +1,7 @@
 # word-cloud
 
+[![Run on Ainize](https://ainize.ai/images/run_on_ainize_button.svg)](https://ainize.web.app/redirect?git_repo=https://github.com/fpem123/word-cloud)
+
 This API make video title word cloud using youtuber channel url
 This is used selenium and wordcloud module
 When you enter channel url some part, this program crawling that channel and make word cloud image.
@@ -12,7 +14,7 @@ You can use API page, and need 1 parameter.
 
 ### ** Post parameter **
 
-*** /find_youtuber ***
+*** /word-cloud/find_youtuber ***
 
 youtuber: This is youtuber channel name that you want.
 
@@ -20,7 +22,7 @@ youtuber: This is youtuber channel name that you want.
 
 result -> Channel name, some part of channel url.
 
-*** /make_wordcloud ***
+*** /word-cloud/make_wordcloud ***
 
 youtuber: This is youtuber part of channel url. That url can get /find_youtuber
 
@@ -41,3 +43,7 @@ curl -X POST "https://master-word-cloud-fpem123.endpoint.ainize.ai/word-cloud/ma
 ### ** With swagger **
 
 Use API page: https://ainize.ai/fpem123/word-cloud?branch=master
+
+### ** With demo **
+
+Use demo page: https://master-word-cloud-fpem123.endpoint.ainize.ai

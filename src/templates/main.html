@@ -25,7 +25,7 @@
         if (types == 'find_youtuber'){
             url = "/word-cloud/find_youtuber";
 
-            fetch (url, {method:'POST', body: formData, })
+            fetch (url, { method:'POST', body: formData, })
             .then(response => {
                 if (response.status === 200) {
                     return response.json();
@@ -53,7 +53,7 @@
         } else {
             url = "/word-cloud/make_wordcloud";
 
-            fetch (url, {method:'POST', body: formData, })
+            fetch (url, { method:'POST', body: formData, })
             .then(response => {
                 if (response.status === 200) {
                     return response.blob();

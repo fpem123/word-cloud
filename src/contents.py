@@ -17,37 +17,30 @@ import nltk
     Des: 워드클라우드 클래스 
 '''
 class MyWordcloud():
-    def __init__(self, text):
-        self._text = text
+    def __init__(self):
+        self.text = None
         self.mask = None
         self.color = 'white'        # default color is white
         self.wordcloud = None
         self.korean = False
 
+    def set_text(self, text):
+        self.text = text
+
     def run(self):
-        '''
-        if self.korean:
-            self._mk_word_cloud_korean()
-        else:
-            self._mk_word_cloud()
-        '''
-        self._mk_word_cloud()
-
-    # 워드클라우드를 만드는 메소드
-    def _mk_word_cloud(self):
-        target = ' '.join(self._text)
-
         font = "8CWdFZ7DPDGqlF9o7-ot4M-VDac.ttf"
+
+        target = ' '.join(self.text)
 
         # Make word cloud object
         wc = WordCloud(font_path=font, max_font_size=40, min_font_size=10,
                        background_color=self.color, mask=self.mask)
-
+    
         self.wordcloud = wc.generate(target)
 
     # 한국어 워드클라우드를 만드는 메소드
     def _mk_word_cloud_korean(self):
-        target = ' '.join(self._text)
+        target = ' '.join(self.text)
 
         kkma = Kkma()
         n = kkma.nouns(target)
@@ -76,6 +69,7 @@ class MyWordcloud():
     def show_word_cloud(self):
         # convert img to array
         result = WordCloud.to_array(self.wordcloud)
-        #result = WordCloud.to_image(self.wordcloud)
+
+        self.__init__()
 
         return result

@@ -6,7 +6,7 @@
 '''
 
 # external module
-from flask import Flask, request, Response, jsonify, send_file, render_template, redirect
+from flask import Flask, request, Response, jsonify, send_file, render_template, current_app
 from PIL import Image
 
 # internal module
@@ -21,15 +21,15 @@ from youtubeCrawler import Crawler
 from myDriver import MyDriver
 from contents import MyWordcloud
 
-app = Flask(__name__)
-
 driver = MyDriver()
+wc = MyWordcloud()
 
 requests_queue = Queue()
 BATCH_SIZE = 1          # also max queue size
 CHECK_INTERVAL = 0.1
 RESULT_FOLDER = 'img_data'
 
+app = Flask(__name__)
 
 # request handler
 def handle_requests_by_batch():
@@ -91,6 +91,7 @@ def run_wordcloud(target):
         crawler = Crawler()
 
         titles = crawler.mk_title_list(page)
+
     except Exception:
         return jsonify({'message': 'Crawler error'}), 400
 
@@ -99,7 +100,7 @@ def run_wordcloud(target):
 
     # make word cloud part
     try:
-        wc = MyWordcloud(titles)
+        wc.set_text(titles)
         wc.run()
 
         result = wc.show_word_cloud()

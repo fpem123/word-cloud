@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+</head>
+<body>
+    <div class="container">
+        <div class="application">
+            <form method="post" onsubmit="postRequests();">
+                <div class="option" id="types">
+                    <p><b>Option</b></p>
+                    <input type="radio" name="find_youtuber" checked="checked">
+                    <label>Find list: Find youtuber channel</label><br>
+                    <input type="radio" name="make_wordcloud">
+                    <label>Make word cloud: Make word cloud using part of url</label><br>
+                </div>
+
+                <br>
+                <hr class="solid">
+
+                <div class="inputText">
+                    <p><b>Input</b></p>
+                    <label id="input">input youtuber: </label>
+                    <input type="text" id="youtuber">
+                </div>
+
+                <div>
+                    <button type="submit" id="submit">RUN</button>
+                </div>
+            </form>
+            <br>
+            <hr>
+
+            <div class="result">
+                <p><b>Result</b></p>
+            </div>
+
+            <script>
+                function postRequests() {
+                    let types = documents.getElementById('types');
+                    let youtuber = documents.getElementById('youtuber');
+
+                    alert(types, youtuber);
+                }
+            </script>
+        </div>
+    </div>
+</body>
+</html>

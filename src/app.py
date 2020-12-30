@@ -134,17 +134,20 @@ def queue_debug():
 @app.route('/word-cloud/<types>', methods=['POST'])
 def generation(types):
     try:
-        if types != 'find_youtuber' and types != 'make_wordcloud':
-            return jsonify({'message': 'Error! Wrong type'}), 400
         if requests_queue.qsize() > BATCH_SIZE:
             return jsonify({'message': 'Error! Too many request'}), 429
 
         try:
             args = []
 
-            target = str(request.form['youtuber'])
-
-            args.append(target)
+            if types == 'find_youtuber':
+                target = str(request.form['youtuber'])
+                args.append(target)
+            elif types == 'make_wordcloud':
+                target = str(request.form['youtuber'])
+                args.append(target)
+            else:
+                return jsonify({'message': 'Error! Wrong type'}), 400
 
             # Add type identify
             if types == 'make_wordcloud':
@@ -165,7 +168,7 @@ def generation(types):
             return result[1]
         # word cloud result is a image. so, need send_file method. This is important.
         elif result[0] == 'wc':
-            return send_file(result[1], mimetype='image/jpeg')
+            return send_file(result[1], mimetype='image/jpeg'), 200
 
     except Exception:
         return jsonify({'message': 'Error! Unable'}), 400

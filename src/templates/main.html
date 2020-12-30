@@ -4,15 +4,85 @@
     <meta charset="UTF-8">
     <title>Main</title>
 </head>
+<script type="text/javascript">
+    let youtuber;
+    let types;
+    let url;
+
+    function send_list_req(){
+        types = document.querySelector('input[name="types"]:checked').value;
+        youtuber = document.getElementById("yname").value;
+
+        if (youtuber == ''){
+            alert("Please input youtuber");
+            return;
+        }
+
+        const formData = new FormData();
+
+        formData.append('youtuber', youtuber);
+
+        if (types == 'find_youtuber'){
+            url = "/word-cloud/find_youtuber";
+
+            fetch (url, {method:'POST', body: formData, })
+            .then(response => {
+                if (response.status === 200) {
+                    return response.json();
+                } else {
+                    alert('nope');
+                }
+            }).catch(err => {
+                alert(err);
+            }).then(data => {
+                const table = document.getElementById('ytable');
+
+                for(let i=0; i <= table.rows.length; i++)
+                    table.deleteRow(-1);
+
+                for (key in data){
+                    const new_row = table.insertRow();
+                    const cell0 = new_row.insertCell(0);
+                    const cell1 = new_row.insertCell(1);
+
+                    cell0.innerText = data[key][0];
+                    cell1.innerText = data[key][1];
+                }
+            });
+
+        } else {
+            url = "/word-cloud/make_wordcloud";
+
+            fetch (url, {method:'POST', body: formData, })
+            .then(response => {
+                if (response.status === 200) {
+                    return response.blob();
+                } else {
+                    alert('nope');
+                }
+            }).catch(err => {
+                alert(err);
+            }).then(blob => {
+                 return URL.createObjectURL(blob);
+            }).then(imageURL =>{
+                document.getElementById('result_image').style.display = "block";
+                document.getElementById('result_image').src = imageURL;
+            }).catch(err => {
+                alert(err);
+            });
+        }
+    }
+
+</script>
 <body>
     <div class="container">
         <div class="application">
-            <form method="post" onsubmit="postRequests();">
-                <div class="option" id="types">
-                    <p><b>Option</b></p>
-                    <input type="radio" name="find_youtuber" checked="checked">
+            <from id="dataReq">
+                <div class="find" id="types">
+                    <p><b>Find youtuber</b></p>
+                    <input type="radio" id="ytype" name="types" value="find_youtuber" checked="checked">
                     <label>Find list: Find youtuber channel</label><br>
-                    <input type="radio" name="make_wordcloud">
+                    <input type="radio" id="wtype" name="types" value="make_wordcloud">
                     <label>Make word cloud: Make word cloud using part of url</label><br>
                 </div>
 
@@ -21,29 +91,24 @@
 
                 <div class="inputText">
                     <p><b>Input</b></p>
-                    <label id="input">input youtuber: </label>
-                    <input type="text" id="youtuber">
+                    <label>input youtuber: </label>
+                    <input type="text" id="yname" name="youtuber">
                 </div>
 
                 <div>
-                    <button type="submit" id="submit">RUN</button>
+                    <button type="submit" id="button1" onclick="send_list_req();">RUN</button>
                 </div>
-            </form>
-            <br>
-            <hr>
+            </from>
 
-            <div class="result">
-                <p><b>Result</b></p>
+            <div id="result">
+                <p><b>Result table</b></p>
+                <div id="result_table">
+                    <table id="ytable">
+                    </table>
+                </div>
+                <p><b>Result image</b></p>
+                <img id="result_image" src="" alt="">
             </div>
-
-            <script>
-                function postRequests() {
-                    let types = documents.getElementById('types');
-                    let youtuber = documents.getElementById('youtuber');
-
-                    alert(types, youtuber);
-                }
-            </script>
         </div>
     </div>
 </body>

@@ -58,7 +58,7 @@ paths:
             schema:
               type: object
               properties:
-                youtuber:
+                youtube_url:
                   type: string
       responses:   # Set response
         '200':

@@ -32,11 +32,11 @@ result -> Word cloud image
 
 ### ** With CLI **
 
-#### /find_youtuber
+#### /word-cloud/find_youtuber
 
 curl -X POST "https://master-word-cloud-fpem123.endpoint.ainize.ai/word-cloud/find_youtuber" -H "accept: application/json" -H "Content-Type: multipart/form-data" -F "youtuber={youtuber}"
 
-#### /make_wordcloud
+#### /word-cloud/make_wordcloud
 
 curl -X POST "https://master-word-cloud-fpem123.endpoint.ainize.ai/word-cloud/make_wordcloud" -H "accept: images/*" -H "Content-Type: multipart/form-data" -F "youtube_url={youtuber channel url}"
 

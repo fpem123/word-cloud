@@ -65,6 +65,7 @@
                 idx++;
             }
             clearInterval(timer);
+            table_time_obj.innerText = 'Done!';
         }).catch(err => {
             clearInterval(timer);
             alert(err);
@@ -97,9 +98,12 @@
         }).then(blob => {
              return URL.createObjectURL(blob);
         }).then(imageURL =>{
+            document.getElementById('sample').style.display = 'none';
             document.getElementById('result_image').style.display = "block";
             document.getElementById('result_image').src = imageURL;
+            document.getElementById('irt').innerText = 'Result image';
             clearInterval(timer);
+            image_time_obj.innerText = 'Done!';
         }).catch(err => {
             clearInterval(timer);
             alert('Image error try again');
@@ -130,16 +134,16 @@
             <from method="POST" id="dataReq">
                 <div class="desc">
                     <p><b>Find youtuber</b></p>
-                    <label>Find list: Find youtuber channel</label><br>
+                    <label>Find youtuber channel. Try it!</label><br>
                 </div>
 
                 <div class="inputText">
                     <label>youtuber: </label>
-                    <input type="text" id="yname" name="youtuber">
+                    <input type="text" id="yname" name="youtuber" size="25">
                 </div>
 
                 <div class="button">
-                    <button type="submit" id="button1" onclick="send_list_req();">RUN</button>
+                    <button type="submit" id="button1" onclick="send_list_req();">Find!</button>
                 </div>
             </from>
 
@@ -159,25 +163,31 @@
             <from method="POST" id="imgReq">
                 <div class="desc">
                     <p><b>Make word cloud</b></p>
-                    <label>Make word cloud: Make word cloud using part of url</label><br>
+                    <label>You can make a word cloud by pressing 'Make!' button in table<br>
+                        or using part of url!</label><br>
+                    <img src="../static/url_exam.png" width="500"><br>
                 </div>
 
                 <div class="inputText">
                     <label>youtuber url: </label>
-                    <input type="text" id="uname" name="youtuber">
+                    <input type="text" id="uname" name="youtuber" placeholder="/channel/UCnyBeZ5iEdlKrAcfNbZ-wog" size="50">
                 </div>
 
                 <div class="button">
-                    <button type="submit" id="button2" onclick="send_img_req();">RUN</button>
+                    <button type="submit" id="button2" onclick="send_img_req();">Make!</button>
                 </div>
             </from>
 
             <br>
 
             <div id="iresult">
-                <p><b>Result image</b></p>
-                <strong id="itimer">Word cloud will set here.</strong>
+                <p><b id="irt">Sample image</b></p>
+                <strong id="itimer"></strong>
                 <img id="result_image" src="" alt="">
+            </div>
+
+            <div id="sample">
+                <img src="../static/wordcloud_sample.jpeg">
             </div>
         </div>
     </div>

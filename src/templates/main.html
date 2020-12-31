@@ -8,13 +8,31 @@
     let table_time_obj = undefined;
     let image_time_obj = undefined;
     let timer = undefined;
+    let flag = undefined;
 
     window.onload = () => {
         table_time_obj = document.getElementById("ttimer");
         image_time_obj = document.getElementById("itimer");
+        flag = false;
+    }
+
+    function double_submit_check() {
+        if (flag) {
+            console.log("double");
+            return true;
+        }
+        else {
+            flag = true;
+
+            return false;
+        }
     }
 
     function send_list_req(){
+        if (double_submit_check()){
+            return ;
+        }
+
         const youtuber = document.getElementById("yname").value;
 
         if (youtuber == ''){
@@ -40,9 +58,11 @@
             } else {
                 clearInterval(timer);
                 alert('nope');
+                flag = false;
             }
         }).catch(err => {
             clearInterval(timer);
+            flag = false;
             alert(err);
         }).then(data => {
             const table = document.getElementById('ytable');
@@ -66,8 +86,10 @@
             }
             clearInterval(timer);
             table_time_obj.innerText = 'Done!';
+            flag = false;
         }).catch(err => {
             clearInterval(timer);
+            flag = false;
             alert(err);
         });
     }
@@ -89,11 +111,13 @@
             if (response.status === 200) {
                 return response.blob();
             } else {
-                alert('URL error try again');
                 clearInterval(timer);
+                flag = false;
+                alert('URL error try again');
             }
         }).catch(err => {
             clearInterval(timer);
+            flag = false;
             alert('err');
         }).then(blob => {
              return URL.createObjectURL(blob);
@@ -104,13 +128,19 @@
             document.getElementById('irt').innerText = 'Result image';
             clearInterval(timer);
             image_time_obj.innerText = 'Done!';
+            flag = false;
         }).catch(err => {
             clearInterval(timer);
+            flag = false;
             alert('Image error try again');
         });
     }
 
     function send_img_req(){
+        if (double_submit_check()){
+            return ;
+        }
+
         const channel = document.getElementById("uname").value;
 
         if (channel == ''){
@@ -122,6 +152,10 @@
     }
 
     function send_table_req(idx){
+        if (double_submit_check()){
+            return ;
+        }
+
         const channel = document.getElementById('ytable').getElementsByTagName('td')[idx * 3 + 1].innerText;
 
         get_img(channel);
@@ -170,7 +204,7 @@
 
                 <div class="inputText">
                     <label>youtuber url: </label>
-                    <input type="text" id="uname" name="youtuber" placeholder="/channel/UCnyBeZ5iEdlKrAcfNbZ-wog" size="50">
+                    <input type="text" id="uname" name="youtuber" placeholder="exam: /channel/UCnyBeZ5iEdlKrAcfNbZ-wog" size="50">
                 </div>
 
                 <div class="button">

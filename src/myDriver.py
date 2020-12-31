@@ -28,7 +28,7 @@ class MyDriver():
         options.add_argument('--disable-dev-shm-usage')
 
         # use chrome
-        self._driver = webdriver.Chrome('chromedriver', chrome_options=options)
+        self._driver = webdriver.Chrome('driver/chromedriver.exe', chrome_options=options)
         self._driver.implicitly_wait(1)
 
     # page scroll

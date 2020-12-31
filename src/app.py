@@ -17,9 +17,9 @@ import time
 import threading
 
 # my module
-from youtubeCrawler import Crawler
-from myDriver import MyDriver
-from contents import MyWordcloud
+from src.youtubeCrawler import Crawler
+from src.myDriver import MyDriver
+from src.contents import MyWordcloud
 
 driver = MyDriver()
 wc = MyWordcloud()

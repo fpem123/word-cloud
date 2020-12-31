@@ -55,14 +55,14 @@
         const url = "/word-cloud/make_wordcloud";
         const formData = new FormData();
 
-        formData.append('youtuber', channel);
+        formData.append('youtube_url', channel);
 
         fetch (url, { method:'POST', body: formData, })
         .then(response => {
             if (response.status === 200) {
                 return response.blob();
             } else {
-                alert('nope');
+                alert('URL error try again');
             }
         }).catch(err => {
             alert('err');
@@ -72,7 +72,7 @@
             document.getElementById('result_image').style.display = "block";
             document.getElementById('result_image').src = imageURL;
         }).catch(err => {
-            alert(err);
+            alert('Image error try again');
         });
     }
 
@@ -83,7 +83,6 @@
             alert("Please fill youtuber url");
             return;
         }
-
 
         get_img(channel);
     }
@@ -147,7 +146,6 @@
             <div id="iresult">
                 <p><b>Result image</b></p>
                 <img id="result_image" src="" alt="">
-
             </div>
         </div>
     </div>

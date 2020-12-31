@@ -24,7 +24,7 @@ result -> Channel name, some part of channel url.
 
 *** /word-cloud/make_wordcloud ***
 
-youtuber: This is youtuber part of channel url. That url can get /find_youtuber
+youtube_url: This is youtuber part of channel url. That url can get /find_youtuber
 
  => exam: /channel/UCnyBeZ5iEdlKrAcfNbZ-wog or /user/pewdiepie
 
@@ -38,7 +38,7 @@ curl -X POST "https://master-word-cloud-fpem123.endpoint.ainize.ai/word-cloud/fi
 
 #### /make_wordcloud
 
-curl -X POST "https://master-word-cloud-fpem123.endpoint.ainize.ai/word-cloud/make_wordcloud" -H "accept: images/*" -H "Content-Type: multipart/form-data" -F "youtuber={youtuber channel url}"
+curl -X POST "https://master-word-cloud-fpem123.endpoint.ainize.ai/word-cloud/make_wordcloud" -H "accept: images/*" -H "Content-Type: multipart/form-data" -F "youtube_url={youtuber channel url}"
 
 ### ** With swagger **
 

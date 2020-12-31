@@ -105,9 +105,11 @@ def run_wordcloud(target):
 
         result = wc.show_word_cloud()
 
+        target = target.split(sep='/')[1]
+
         # make dir
         os.makedirs(RESULT_FOLDER, exist_ok=True)
-        path = os.path.join(RESULT_FOLDER, 'wc')
+        path = os.path.join(RESULT_FOLDER, target)
 
         # save result image. If not save image, you will see missing image.
         Image.fromarray(result).save(path, 'jpeg')
@@ -115,6 +117,8 @@ def run_wordcloud(target):
         with open(path, 'rb') as f:
             data = f.read()
         result = io.BytesIO(data)
+
+        os.remove(path)
 
         return 'wc', result
 
@@ -145,7 +149,7 @@ def generation(types):
                 target = str(request.form['youtuber'])
                 args.append(target)
             elif types == 'make_wordcloud':
-                target = str(request.form['youtuber'])
+                target = str(request.form['youtube_url'])
                 args.append(target)
             else:
                 return jsonify({'message': 'Error! Wrong type'}), 400

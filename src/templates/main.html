@@ -80,12 +80,16 @@
             for (key in data){
                 const new_row = table.insertRow();
                 const name = new_row.insertCell(0);
-                const cell1 = new_row.insertCell(1);
-                const cell2 = new_row.insertCell(2);
+                const channel_url = new_row.insertCell(1);
+                const btn = new_row.insertCell(2);
+
+                name.style.width = '100pt';
+                channel_url.style.width = '225pt';
+                btn.style.width = '50pt';
 
                 name.innerText = data[key][0];
-                cell1.innerText = data[key][1];
-                cell2.innerHTML = `<button id="idx${idx}" onclick="send_table_req(${idx});">Make!</button>`;
+                channel_url.innerText = data[key][1];
+                btn.innerHTML = `<button class="btn btn-primary btn=lg" id="idx${idx}" onclick="send_table_req(${idx});">Make!</button>`;
 
                 idx++;
             }
@@ -123,7 +127,7 @@
         }).catch(err => {
             clearInterval(timer);
             flag = false;
-            alert('err');
+            alert(err);
         }).then(blob => {
              return URL.createObjectURL(blob);
         }).then(imageURL =>{
@@ -169,8 +173,9 @@
 </script>
 <body>
     <div class="container">
-        <div class="application">
+        <div class="jumbotron mt-3">
             <from method="POST" id="dataReq">
+                <br>
                 <!-- Project title -->
                 <h1>Make word cloud</h1><br>
                 <a>Crawling and make word-cloud image, using selenium module and wordcloud module.</a><br><br>
@@ -195,16 +200,13 @@
 
                 <div class="desc">
                     <h3>Find youtuber</h3>
-                    <label>Find youtuber channel. Try it!</label><br>
+                    <label>Find youtuber channel. Try it!</label><br><br>
                 </div>
 
                 <div class="inputText">
                     <label>youtuber: </label>
                     <input type="text" id="yname" name="youtuber" size="25">
-                </div>
-
-                <div class="button">
-                    <button type="submit" id="button1" onclick="send_list_req();">Find!</button>
+                    <button class="btn btn-primary btn=lg" type="submit" id="button1" onclick="send_list_req();">Find!</button>
                 </div>
             </from>
 
@@ -226,16 +228,13 @@
                     <h3>Make word cloud</h3>
                     <label>You can make a word cloud by pressing 'Make!' button in table<br>
                         or using part of url!</label><br>
-                    <img src="../static/url_exam.png" width="500"><br>
+                    <img src="../static/url_exam.png" width="500"><br><br>
                 </div>
 
                 <div class="inputText">
                     <label>youtuber url: </label>
                     <input type="text" id="uname" name="youtuber" placeholder="exam: /channel/UCnyBeZ5iEdlKrAcfNbZ-wog" size="50">
-                </div>
-
-                <div class="button">
-                    <button type="submit" id="button2" onclick="send_img_req();">Make!</button>
+                    <button class="btn btn-primary btn=lg" type="submit" id="button2" onclick="send_img_req();">Make!</button>
                 </div>
             </from>
 
@@ -250,6 +249,8 @@
             <div id="sample">
                 <img src="../static/wordcloud_sample.jpeg">
             </div>
+
+            <br><br>
         </div>
     </div>
 </body>

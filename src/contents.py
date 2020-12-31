@@ -33,7 +33,7 @@ class MyWordcloud():
         target = ' '.join(self.text)
 
         # Make word cloud object
-        wc = WordCloud(font_path=font, max_font_size=100, min_font_size=10,
+        wc = WordCloud(font_path=font, max_font_size=80, min_font_size=10,
                        background_color=self.color, mask=self.mask)
     
         self.wordcloud = wc.generate(target)

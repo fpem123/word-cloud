@@ -44,7 +44,7 @@ class MyDriver():
 
             for i in range(4):
                 body.send_keys(Keys.END)
-                time.sleep(0.2)
+                time.sleep(0.4)
 
             current = self._driver.execute_script('return document.documentElement.scrollHeight')
 

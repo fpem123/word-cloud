@@ -5,92 +5,106 @@
     <title>Main</title>
 </head>
 <script type="text/javascript">
-    let youtuber;
-    let types;
-    let url;
 
     function send_list_req(){
-        types = document.querySelector('input[name="types"]:checked').value;
-        youtuber = document.getElementById("yname").value;
+        const youtuber = document.getElementById("yname").value;
 
         if (youtuber == ''){
-            alert("Please input youtuber");
+            alert("Please fill youtuber name");
             return;
         }
 
         const formData = new FormData();
+        const url = "/word-cloud/find_youtuber";
 
         formData.append('youtuber', youtuber);
 
-        if (types == 'find_youtuber'){
-            url = "/word-cloud/find_youtuber";
+        fetch (url, { method:'POST', body: formData, })
+        .then(response => {
+            if (response.status === 200) {
+                return response.json();
+            } else {
+                alert('nope');
+            }
+        }).catch(err => {
+            alert(err);
+        }).then(data => {
+            const table = document.getElementById('ytable');
 
-            fetch (url, { method:'POST', body: formData, })
-            .then(response => {
-                if (response.status === 200) {
-                    return response.json();
-                } else {
-                    alert('nope');
-                }
-            }).catch(err => {
-                alert(err);
-            }).then(data => {
-                const table = document.getElementById('ytable');
+            for(let i=0; i <= table.rows.length; i++)
+                table.deleteRow(-1);
 
-                for(let i=0; i <= table.rows.length; i++)
-                    table.deleteRow(-1);
+            let idx = 0;
 
-                for (key in data){
-                    const new_row = table.insertRow();
-                    const cell0 = new_row.insertCell(0);
-                    const cell1 = new_row.insertCell(1);
+            for (key in data){
+                const new_row = table.insertRow();
+                const name = new_row.insertCell(0);
+                const cell1 = new_row.insertCell(1);
+                const cell2 = new_row.insertCell(2);
 
-                    cell0.innerText = data[key][0];
-                    cell1.innerText = data[key][1];
-                }
-            });
+                name.innerText = data[key][0];
+                cell1.innerText = data[key][1];
+                cell2.innerHTML = `<button id="idx${idx}" onclick="send_table_req(${idx});">Make!</button>`;
 
-        } else {
-            url = "/word-cloud/make_wordcloud";
+                idx++;
+            }
+        });
+    }
 
-            fetch (url, { method:'POST', body: formData, })
-            .then(response => {
-                if (response.status === 200) {
-                    return response.blob();
-                } else {
-                    alert('nope');
-                }
-            }).catch(err => {
-                alert(err);
-            }).then(blob => {
-                 return URL.createObjectURL(blob);
-            }).then(imageURL =>{
-                document.getElementById('result_image').style.display = "block";
-                document.getElementById('result_image').src = imageURL;
-            }).catch(err => {
-                alert(err);
-            });
+    function get_img(channel){
+        const url = "/word-cloud/make_wordcloud";
+        const formData = new FormData();
+
+        formData.append('youtuber', channel);
+
+        fetch (url, { method:'POST', body: formData, })
+        .then(response => {
+            if (response.status === 200) {
+                return response.blob();
+            } else {
+                alert('nope');
+            }
+        }).catch(err => {
+            alert('err');
+        }).then(blob => {
+             return URL.createObjectURL(blob);
+        }).then(imageURL =>{
+            document.getElementById('result_image').style.display = "block";
+            document.getElementById('result_image').src = imageURL;
+        }).catch(err => {
+            alert(err);
+        });
+    }
+
+    function send_img_req(){
+        const channel = document.getElementById("uname").value;
+
+        if (channel == ''){
+            alert("Please fill youtuber url");
+            return;
         }
+
+
+        get_img(channel);
+    }
+
+    function send_table_req(idx){
+        const channel = document.getElementById('ytable').getElementsByTagName('td')[idx * 3 + 1].innerText;
+
+        get_img(channel);
     }
 
 </script>
 <body>
     <div class="container">
         <div class="application">
-            <from id="dataReq">
-                <div class="find" id="types">
+            <from method="POST" id="dataReq">
+                <div>
                     <p><b>Find youtuber</b></p>
-                    <input type="radio" id="ytype" name="types" value="find_youtuber" checked="checked">
                     <label>Find list: Find youtuber channel</label><br>
-                    <input type="radio" id="wtype" name="types" value="make_wordcloud">
-                    <label>Make word cloud: Make word cloud using part of url</label><br>
                 </div>
 
-                <br>
-                <hr class="solid">
-
                 <div class="inputText">
-                    <p><b>Input</b></p>
                     <label>input youtuber: </label>
                     <input type="text" id="yname" name="youtuber">
                 </div>
@@ -100,14 +114,40 @@
                 </div>
             </from>
 
-            <div id="result">
+            <br>
+
+            <div id="tresult">
                 <p><b>Result table</b></p>
                 <div id="result_table">
                     <table id="ytable">
                     </table>
                 </div>
+            </div>
+
+            <hr>
+
+            <from method="POST" id="imgReq">
+                <div>
+                    <p><b>Make word cloud</b></p>
+                    <label>Make word cloud: Make word cloud using part of url</label><br>
+                </div>
+
+                <div class="inputText">
+                    <label>input youtuber: </label>
+                    <input type="text" id="uname" name="youtuber">
+                </div>
+
+                <div>
+                    <button type="submit" id="button2" onclick="send_img_req();">RUN</button>
+                </div>
+            </from>
+
+            <br>
+
+            <div id="iresult">
                 <p><b>Result image</b></p>
                 <img id="result_image" src="" alt="">
+
             </div>
         </div>
     </div>

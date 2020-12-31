@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Main</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
 </head>
 <script type="text/javascript">
     let table_time_obj = undefined;
@@ -57,7 +62,7 @@
                 return response.json();
             } else {
                 clearInterval(timer);
-                alert('nope');
+                alert('request error');
                 flag = false;
             }
         }).catch(err => {
@@ -166,8 +171,30 @@
     <div class="container">
         <div class="application">
             <from method="POST" id="dataReq">
+                <!-- Project title -->
+                <h1>Make word cloud</h1><br>
+                <a>Crawling and make word-cloud image, using selenium module and wordcloud module.</a><br><br>
+                <a>Git hub repository : </a> <a href="https://github.com/fpem123/word-cloud">Word cloud</a><br>
+                <a>Open API : </a> <a href="https://ainize.ai/fpem123/word-cloud?branch=master">On Ainize</a><br><br>
+
+                <style>
+                    #submit{
+                        border-top-left-radius: 5pt;
+                        border-top-right-radius: 5pt;
+                        border-bottom-left-radius: 5pt;
+                        border-bottom-right-radius: 5pt;
+                    }
+                </style>
+
+                <h3>Notice</h3>
+                <ul>
+                    <li>Crawling takes some time.</li>
+                </ul>
+
+                <hr>
+
                 <div class="desc">
-                    <p><b>Find youtuber</b></p>
+                    <h3>Find youtuber</h3>
                     <label>Find youtuber channel. Try it!</label><br>
                 </div>
 
@@ -196,7 +223,7 @@
 
             <from method="POST" id="imgReq">
                 <div class="desc">
-                    <p><b>Make word cloud</b></p>
+                    <h3>Make word cloud</h3>
                     <label>You can make a word cloud by pressing 'Make!' button in table<br>
                         or using part of url!</label><br>
                     <img src="../static/url_exam.png" width="500"><br>

@@ -87,7 +87,7 @@
                 channel_url.style.width = '225pt';
                 btn.style.width = '50pt';
 
-                name.innerText = data[key][0];
+                name.innerHTML = `<a href=https://www.youtube.com${data[key][1]} target="_blank">${data[key][0]}</a>`;
                 channel_url.innerText = data[key][1];
                 btn.innerHTML = `<button class="btn btn-primary btn=lg" id="idx${idx}" onclick="send_table_req(${idx});">Make!</button>`;
 

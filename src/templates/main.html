@@ -5,6 +5,14 @@
     <title>Main</title>
 </head>
 <script type="text/javascript">
+    let table_time_obj = undefined;
+    let image_time_obj = undefined;
+    let timer = undefined;
+
+    window.onload = () => {
+        table_time_obj = document.getElementById("ttimer");
+        image_time_obj = document.getElementById("itimer");
+    }
 
     function send_list_req(){
         const youtuber = document.getElementById("yname").value;
@@ -16,17 +24,25 @@
 
         const formData = new FormData();
         const url = "/word-cloud/find_youtuber";
+        let start = 0;
 
         formData.append('youtuber', youtuber);
+
+        timer = setInterval(() => {
+            start += 1;
+            table_time_obj.innerText = `${start / 10} 's`;
+        }, 100);
 
         fetch (url, { method:'POST', body: formData, })
         .then(response => {
             if (response.status === 200) {
                 return response.json();
             } else {
+                clearInterval(timer);
                 alert('nope');
             }
         }).catch(err => {
+            clearInterval(timer);
             alert(err);
         }).then(data => {
             const table = document.getElementById('ytable');
@@ -48,14 +64,24 @@
 
                 idx++;
             }
+            clearInterval(timer);
+        }).catch(err => {
+            clearInterval(timer);
+            alert(err);
         });
     }
 
     function get_img(channel){
         const url = "/word-cloud/make_wordcloud";
         const formData = new FormData();
+        let start = 0;
 
         formData.append('youtube_url', channel);
+
+        timer = setInterval(() => {
+            start += 1;
+            image_time_obj.innerText = `${start / 10} 's`;
+        }, 100);
 
         fetch (url, { method:'POST', body: formData, })
         .then(response => {
@@ -63,15 +89,19 @@
                 return response.blob();
             } else {
                 alert('URL error try again');
+                clearInterval(timer);
             }
         }).catch(err => {
+            clearInterval(timer);
             alert('err');
         }).then(blob => {
              return URL.createObjectURL(blob);
         }).then(imageURL =>{
             document.getElementById('result_image').style.display = "block";
             document.getElementById('result_image').src = imageURL;
+            clearInterval(timer);
         }).catch(err => {
+            clearInterval(timer);
             alert('Image error try again');
         });
     }
@@ -98,7 +128,7 @@
     <div class="container">
         <div class="application">
             <from method="POST" id="dataReq">
-                <div>
+                <div class="desc">
                     <p><b>Find youtuber</b></p>
                     <label>Find list: Find youtuber channel</label><br>
                 </div>
@@ -108,7 +138,7 @@
                     <input type="text" id="yname" name="youtuber">
                 </div>
 
-                <div>
+                <div class="button">
                     <button type="submit" id="button1" onclick="send_list_req();">RUN</button>
                 </div>
             </from>
@@ -117,6 +147,7 @@
 
             <div id="tresult">
                 <p><b>Result table</b></p>
+                <strong id="ttimer">Table will set here.</strong>
                 <div id="result_table">
                     <table id="ytable">
                     </table>
@@ -126,7 +157,7 @@
             <hr>
 
             <from method="POST" id="imgReq">
-                <div>
+                <div class="desc">
                     <p><b>Make word cloud</b></p>
                     <label>Make word cloud: Make word cloud using part of url</label><br>
                 </div>
@@ -136,7 +167,7 @@
                     <input type="text" id="uname" name="youtuber">
                 </div>
 
-                <div>
+                <div class="button">
                     <button type="submit" id="button2" onclick="send_img_req();">RUN</button>
                 </div>
             </from>
@@ -145,6 +176,7 @@
 
             <div id="iresult">
                 <p><b>Result image</b></p>
+                <strong id="itimer">Word cloud will set here.</strong>
                 <img id="result_image" src="" alt="">
             </div>
         </div>

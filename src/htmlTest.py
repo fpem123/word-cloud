@@ -1,6 +1,7 @@
 from flask import Flask, request, Response, jsonify, send_file, render_template, redirect
 import io
 import os
+import time
 from PIL import Image
 
 from contents import MyWordcloud
@@ -13,7 +14,7 @@ wc = MyWordcloud()
 
 
 @app.route('/word-cloud/make_wordcloud', methods=['POST'])
-def send_url():
+def send_img():
     text = ['hi', 'hello', 'hi']
     wc.set_text(text)
     wc.run()
@@ -28,6 +29,8 @@ def send_url():
     path = os.path.join(RESULT_FOLDER, target)
     Image.fromarray(result).save(path, 'jpeg')
 
+    time.sleep(2)
+
     with open(path, 'rb') as f:
         data = f.read()
     result = io.BytesIO(data)
@@ -38,8 +41,10 @@ def send_url():
 
 
 @app.route('/word-cloud/find_youtuber', methods=['POST'])
-def send_image():
+def send_data():
     print(request.form['youtuber'])
+
+    time.sleep(2)
 
     return jsonify({'0': ['youtuber1', 'url/iswc'], '1': ['youtuber2', 'url/iswc']}), 200
 

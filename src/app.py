@@ -33,26 +33,24 @@ app = Flask(__name__)
 
 # request handler
 def handle_requests_by_batch():
-    try:
-        while True:
-            requests_batch = []
+    while True:
+        requests_batch = []
 
-            while not (len(requests_batch) >= BATCH_SIZE):
-                try:
-                    requests_batch.append(requests_queue.get(timeout=CHECK_INTERVAL))
-                except Empty:
-                    continue
+        while not (len(requests_batch) >= BATCH_SIZE):
+            try:
+                requests_batch.append(requests_queue.get(timeout=CHECK_INTERVAL))
+            except Empty:
+                continue
 
-            for requests in requests_batch:
+        for requests in requests_batch:
+            try:
                 if len(requests["input"]) == 1:
                     requests['output'] = run_crawl(requests['input'][0])
                 elif len(requests["input"]) == 2:
                     requests['output'] = run_wordcloud(requests['input'][0])
 
-    except Exception as e:
-        while not requests_queue.empty():
-            requests_queue.get()
-        print(e)
+            except Exception as e:
+                    requests["output"] = e
 
 
 threading.Thread(target=handle_requests_by_batch).start()
